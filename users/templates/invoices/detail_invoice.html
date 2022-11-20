@@ -1,0 +1,207 @@
+{% extends 'dashboard_base.html' %}
+{% load static i18n %}
+{% block title %}
+Detalle de Factura
+{% endblock title %}
+{% block content %}
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::Toolbar-->
+    <div class="toolbar" id="kt_toolbar">
+        <!--begin::Container-->
+        <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+            <!--begin::Page title-->
+            <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
+                <!--begin::Title-->
+                <h1 class="d-flex text-dark fw-bolder fs-3 align-items-center my-1">Facturas</h1>
+                <!--end::Title-->
+                <!--begin::Separator-->
+                <span class="h-20px border-gray-300 border-start mx-4"></span>
+                <!--end::Separator-->
+                <!--begin::Breadcrumb-->
+                <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item">
+                        <span class="bullet bg-gray-300 w-5px h-2px"></span>
+                    </li>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item text-muted">Detalle de Factura</li>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item">
+                        <span class="bullet bg-gray-300 w-5px h-2px"></span>
+                    </li>
+                    <!--end::Item-->
+                </ul>
+                <!--end::Breadcrumb-->
+            </div>
+            <!--end::Page title-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Toolbar-->
+    <!--begin::Post-->
+    <div class="post d-flex flex-column-fluid" id="kt_post">
+        <!--begin::Container-->
+        <div id="kt_content_container" class="container-xxl">
+            <!--begin::Card-->
+            <div class="card">
+                <div class="card mb-5 mb-xl-10">
+                    <!--begin::Card header-->
+                    <div class="card-header border-0" data-bs-toggle="collapse" data-bs-target="#kt_detail_invoice" aria-expanded="true" aria-controls="kt_detail_invoice">
+                        <!--begin::Card title-->
+                        <div class="card-title m-0">
+                            <h3 class="fw-bolder m-0">Detalle de Factura</h3>
+                        </div>
+                        <!--end::Card title-->
+                    </div>
+                    <!--begin::Card header-->
+                    <!--begin::Content-->
+                    <div id="kt_settings_detail_invoice" class="collapse show">
+                        <!--begin::Card body-->
+                        <div class="card-body border-top p-9">
+							<!--begin::Input group-->
+							<div class="row g-9 mb-7">
+								<!--begin::Col-->
+								<div class="col-md-5 fv-row">
+									<!--begin::Label-->
+									<label class="fs-4 fw-bolder mb-2">Fecha inicio</label>
+									<!--end::Label-->
+									<!--begin::Input-->
+									<input id="date-created" class="form-control d-none" disabled value="{{invoice.date_joined}}" />
+									<input id="inpCurrentDate" class="form-control input-white" disabled />
+									<!--end::Input-->
+								</div>
+								<!--end::Col-->
+                                <!--begin::Col-->
+								<div class="col-md-5 fv-row">
+									<!--begin::Label-->
+									<label class="fs-4 fw-bolder mb-2">Fecha finalización</label>
+									<!--end::Label-->
+									<!--begin::Input-->
+									{% if invoice.payment_type == 'Sesión' %}
+                                    <input id="inpEndDate" class="form-control input-white" disabled />
+									{% endif %}
+									{% if invoice.payment_type == 'Semana' %}
+                                    <input id="inpEndDateW" class="form-control input-white" disabled />
+									{% endif %}
+									{% if invoice.payment_type == 'Quincena' %}
+                                    <input id="inpEndDateF" class="form-control input-white" disabled />
+									{% endif %}
+									{% if invoice.payment_type == 'Mes' %}
+                                    <input id="inpEndDateM" class="form-control input-white" disabled />
+									{% endif %}
+									<!--end::Input-->
+								</div>
+								<!--end::Col-->
+							</div>
+							<!--end::Input group-->
+                            <!--begin::Input group-->
+							<div class="row g-9 mb-7">
+								<!--begin::Col-->
+								<div class="col-md-5 fv-row">
+									<!--begin::Label-->
+									<label class="fs-4 fw-bolder mb-2">Número de factura</label>
+									<!--end::Label-->
+									<!--begin::Input-->
+									<input class="form-control input-white" disabled value="{{invoice.id}}" />
+									<!--end::Input-->
+								</div>
+								<!--end::Col-->
+								<!--begin::Col-->
+								<div class="col-md-5 fv-row">
+									<!--begin::Label-->
+									<label class="fs-4 fw-bolder mb-2">Estado</label>
+									<!--end::Label-->
+									<!--begin::Input-->
+									<input class="form-control input-white" disabled value="{{invoice.status}}" />
+									<!--end::Input-->
+								</div>
+								<!--end::Col-->
+							</div>
+							<!--end::Input group-->
+                            <!--begin::Input group-->
+							<div class="row g-9 mb-7">
+								<!--begin::Col-->
+								<div class="col-md-5 fv-row">
+									<!--begin::Label-->
+									<label class="fs-4 fw-bolder mb-2">Nombre</label>
+									<!--end::Label-->
+									<!--begin::Input-->
+									<input class="form-control input-white" disabled value="{{invoice.client.name}}" />
+									<!--end::Input-->
+								</div>
+								<!--end::Col-->
+								<!--begin::Col-->
+								<div class="col-md-5 fv-row">
+									<!--begin::Label-->
+									<label class="fs-4 fw-bolder mb-2">Apellido</label>
+									<!--end::Label-->
+									<!--begin::Input-->
+									<input class="form-control input-white" disabled value="{{invoice.client.last_name}}" />
+									<!--end::Input-->
+								</div>
+								<!--end::Col-->
+							</div>
+							<!--end::Input group-->
+                            <!--begin::Input group-->
+							<div class="row g-9 mb-7">
+								<!--begin::Col-->
+								<div class="col-md-5 fv-row">
+									<!--begin::Label-->
+									<label class="fs-4 fw-bolder mb-2">Tipo de documento</label>
+									<!--end::Label-->
+									<!--begin::Input-->
+									<input class="form-control input-white" disabled value="{{invoice.client.document_type}}" />
+									<!--end::Input-->
+								</div>
+								<!--end::Col-->
+								<!--begin::Col-->
+								<div class="col-md-5 fv-row">
+									<!--begin::Label-->
+									<label class="fs-4 fw-bolder mb-2">Número de documento</label>
+									<!--end::Label-->
+									<!--begin::Input-->
+									<input class="form-control input-white" disabled value="{{invoice.client.document_number}}" />
+									<!--end::Input-->
+								</div>
+								<!--end::Col-->
+							</div>
+							<!--end::Input group-->
+                            <!--begin::Input group-->
+							<div class="row g-9 mb-7">
+								<!--begin::Col-->
+								<div class="col-md-5 fv-row">
+									<!--begin::Label-->
+									<label class="fs-4 fw-bolder mb-2">Tipo de pago</label>
+									<!--end::Label-->
+									<!--begin::Input-->
+									<input id="payment-type" class="form-control input-white" disabled value="{{invoice.payment_type}}" />
+									<!--end::Input-->
+								</div>
+								<!--end::Col-->
+								<!--begin::Col-->
+								<div class="col-md-5 fv-row">
+									<!--begin::Label-->
+									<label class="fs-4 fw-bolder mb-2">Total a pagar</label>
+									<!--end::Label-->
+									<!--begin::Input-->
+									<input class="form-control input-white" disabled value="${{invoice.total}}" />
+									<!--end::Input-->
+								</div>
+								<!--end::Col-->
+							</div>
+							<!--end::Input group-->
+                        </div>
+                        <!--end::Card body-->
+                    </div>
+                    <!--end::Content-->
+                </div>
+            </div>
+            <!--end::Card-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Post-->
+</div>
+{% endblock content %}

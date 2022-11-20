@@ -1,0 +1,90 @@
+{% extends 'dashboard_base.html' %}
+{% load static i18n %}
+{% block title %}
+Eliminar Cliente
+{% endblock title %}
+{% block content %}
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::Toolbar-->
+    <div class="toolbar" id="kt_toolbar">
+        <!--begin::Container-->
+        <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+            <!--begin::Page title-->
+            <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
+                <!--begin::Title-->
+                <h1 class="d-flex text-dark fw-bolder fs-3 align-items-center my-1">Clientes</h1>
+                <!--end::Title-->
+                <!--begin::Separator-->
+                <span class="h-20px border-gray-300 border-start mx-4"></span>
+                <!--end::Separator-->
+                <!--begin::Breadcrumb-->
+                <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item">
+                        <span class="bullet bg-gray-300 w-5px h-2px"></span>
+                    </li>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item text-muted">Eliminar Cliente</li>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item">
+                        <span class="bullet bg-gray-300 w-5px h-2px"></span>
+                    </li>
+                    <!--end::Item-->
+                </ul>
+                <!--end::Breadcrumb-->
+            </div>
+            <!--end::Page title-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Toolbar-->
+    <!--begin::Post-->
+    <div class="post d-flex flex-column-fluid" id="kt_post">
+        <!--begin::Container-->
+        <div id="kt_content_container" class="container-xxl">
+            <!--begin::Card-->
+            <div class="card">
+                <div class="card mb-5 mb-xl-10">
+                    <!--begin::Card header-->
+                    <div class="card-header border-0" data-bs-toggle="collapse" data-bs-target="#kt_delete_client" aria-expanded="true" aria-controls="kt_delete_client">
+                        <!--begin::Card title-->
+                        <div class="card-title m-0">
+                            <h3 class="fw-bolder m-0">Eliminar Cliente</h3>
+                        </div>
+                        <!--end::Card title-->
+                    </div>
+                    <!--begin::Card header-->
+                    <!--begin::Content-->
+                    <div id="kt_settings_delete_client" class="collapse show">
+                        <form action="" method="post" id="kt_delete_client_form" class="border-top">
+                            {% csrf_token %}
+                            <div aria-labelledby="swal2-title" aria-describedby="swal2-html-container" class="swal2-popup swal2-modal swal2-icon-warning swal2-show m-auto" tabindex="-1" role="dialog" aria-live="assertive" aria-modal="true" style="display: grid;">
+                                <div class="swal2-icon swal2-warning swal2-icon-show" style="display: flex;">
+                                    <div class="swal2-icon-content">!</div>
+                                </div>
+                                <div class="swal2-html-container" id="swal2-html-container" style="display: block;">
+                                    ¿Estás seguro de que quieres borrar a {{ object.name }} {{ object.last_name }}?
+                                </div>
+                                <div class="swal2-actions" style="display: flex;">
+                                    <div class="swal2-loader"></div>
+                                    <button type="submit" class="swal2-confirm btn fw-bold btn-danger" style="display: inline-block;">
+                                    Sí, eliminar!</button>
+                                    <a href="{{ list_url }}" class="swal2-cancel btn fw-bold btn-active-light-primary" style="display: inline-block;">No, cancelar</a>
+                                </div>
+                                <div class="swal2-timer-progress-bar-container">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!--end::Content-->
+                </div>
+            </div>
+            <!--end::Card-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Post-->
+</div>
+{% endblock content %}

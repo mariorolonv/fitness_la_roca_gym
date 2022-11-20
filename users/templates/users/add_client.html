@@ -1,0 +1,202 @@
+{% extends 'dashboard_base.html' %}
+{% load static i18n %}
+{% block title %}
+Añadir Cliente
+{% endblock title %}
+{% block content %}
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::Toolbar-->
+    <div class="toolbar" id="kt_toolbar">
+        <!--begin::Container-->
+        <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+            <!--begin::Page title-->
+            <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
+                <!--begin::Title-->
+                <h1 class="d-flex text-dark fw-bolder fs-3 align-items-center my-1">Clientes</h1>
+                <!--end::Title-->
+                <!--begin::Separator-->
+                <span class="h-20px border-gray-300 border-start mx-4"></span>
+                <!--end::Separator-->
+                <!--begin::Breadcrumb-->
+                <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item">
+                        <span class="bullet bg-gray-300 w-5px h-2px"></span>
+                    </li>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item text-muted">Añadir Cliente</li>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item">
+                        <span class="bullet bg-gray-300 w-5px h-2px"></span>
+                    </li>
+                    <!--end::Item-->
+                </ul>
+                <!--end::Breadcrumb-->
+            </div>
+            <!--end::Page title-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Toolbar-->
+    <!--begin::Post-->
+    <div class="post d-flex flex-column-fluid" id="kt_post">
+        <!--begin::Container-->
+        <div id="kt_content_container" class="container-xxl">
+            <!--begin::Card-->
+            <div class="card">
+                <div class="card mb-5 mb-xl-10">
+                    <!--begin::Card header-->
+                    <div class="card-header border-0" data-bs-toggle="collapse" data-bs-target="#kt_add_client" aria-expanded="true" aria-controls="kt_add_client">
+                        <!--begin::Card title-->
+                        <div class="card-title m-0">
+                            <h3 class="fw-bolder m-0">Añadir Nuevo Cliente</h3>
+                        </div>
+                        <!--end::Card title-->
+                    </div>
+                    <!--begin::Card header-->
+                    <!--begin::Content-->
+                    <div id="kt_settings_add_client" class="collapse show">
+                        <!--begin::Form-->
+                        <form action="{% url 'users:process_client' %}" method="POST" id="kt_add_client_form" class="form">
+                            {% csrf_token %}
+                            {% if message %}
+                            <div aria-labelledby="swal2-title" aria-describedby="swal2-html-container" id="message-success" class="swal2-popup swal2-modal swal2-icon-success swal2-show m-auto" tabindex="-1" role="dialog" aria-live="assertive" aria-modal="true" style="display: grid;">
+                                <div class="swal2-icon swal2-success swal2-icon-show" style="display: flex;">
+                                    <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
+                                    <span class="swal2-success-line-tip"></span>
+                                    <span class="swal2-success-line-long"></span>
+                                    <div class="swal2-success-ring"></div>
+                                    <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
+                                    <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
+                                </div>
+                                <div class="swal2-html-container" id="swal2-html-container" style="display: block;">
+                                    Cliente guardado exitosamente!
+                                </div>
+                                <div class="swal2-actions" style="display: flex;">
+                                    <div class="swal2-loader"></div>
+                                    <button type="button" class="swal2-confirm btn btn-primary" onclick="RemoveMessage()" style="display: inline-block;">
+                                    Ok!</button>
+                                </div>
+                                <div class="swal2-timer-progress-bar-container">
+                                </div>
+                            </div>
+                            {% endif %}
+                            <!--begin::Card body-->
+                            <div class="card-body border-top p-9">
+                                <!--begin::Input group-->
+                                <div class="row mb-6">
+                                    <!--begin::Label-->
+                                    <label for="id_name" class="col-lg-4 col-form-label required fw-bold fs-6">Nombre</label>
+                                    <!--end::Label-->
+                                    <!--begin::Col-->
+                                    <div class="col-lg-8">
+                                        <!--begin::Row-->
+                                        <div class="row">
+                                            <!--begin::Col-->
+                                            <div class="col-lg-6 fv-row">
+                                                <input type="text" name="name" id="id_name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Nombre" required />
+                                            </div>
+                                            <!--end::Col-->
+                                        </div>
+                                        <!--end::Row-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row mb-6">
+                                    <!--begin::Label-->
+                                    <label for="id_last_name" class="col-lg-4 col-form-label required fw-bold fs-6">Apellido</label>
+                                    <!--end::Label-->
+                                    <!--begin::Col-->
+                                    <div class="col-lg-8">
+                                        <!--begin::Row-->
+                                        <div class="row">
+                                            <!--begin::Col-->
+                                            <div class="col-lg-6 fv-row">
+                                                <input type="text" name="last_name" id="id_last_name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Apellido" required />
+                                            </div>
+                                            <!--end::Col-->
+                                        </div>
+                                        <!--end::Row-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row mb-6">
+                                    <!--begin::Label-->
+                                    <label for="id_document_type" class="col-lg-4 col-form-label required fw-bold fs-6">Tipo de documento</label>
+                                    <!--end::Label-->
+                                    <!--begin::Col-->
+                                    <div class="col-lg-8">
+                                        <!--begin::Row-->
+                                        <div class="row">
+                                            <!--begin::Col-->
+                                            <div class="col-lg-6 fv-row">
+                                                <select name="document_type" id="id_document_type" aria-label="Seleccione tipo de documento" data-control="select2" data-placeholder="Seleccione tipo de documento.." class="form-select form-select-solid form-select-lg" required>
+                                                    <option value="">Seleccione tipo de documento..</option>
+                                                    <option value="Tarjeta de identidad">
+                                                    <b>Tarjeta de identidad</b></option>
+                                                    <option value="Cédula de ciudadanía">
+                                                    <b>Cédula de ciudadanía</b></option>
+                                                    <option value="Tarjeta de extranjería">
+                                                    <b>Tarjeta de extranjería</b></option>
+                                                    <option value="Cédula de extranjería">
+                                                    <b>Cédula de extranjería</b></option>
+                                                    <option value="Pasaporte">
+                                                    <b>Pasaporte</b></option>
+                                                    <option value="Otro">
+                                                    <b>Otro</b></option>
+                                                </select>
+                                            </div>
+                                            <!--end::Col-->
+                                        </div>
+                                        <!--end::Row-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row mb-6">
+                                    <!--begin::Label-->
+                                    <label for="id_document_number" class="col-lg-4 col-form-label required fw-bold fs-6">Número de documento</label>
+                                    <!--end::Label-->
+                                    <!--begin::Col-->
+                                    <div class="col-lg-8">
+                                        <!--begin::Row-->
+                                        <div class="row">
+                                            <!--begin::Col-->
+                                            <div class="col-lg-6 fv-row">
+                                                <input type="number" name="document_number" id="id_document_number" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Número de documento" required />
+                                            </div>
+                                            <!--end::Col-->
+                                        </div>
+                                        <!--end::Row-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                            </div>
+                            <!--end::Card body-->
+                            <!--begin::Actions-->
+                            <div class="card-footer d-flex justify-content-end py-6 px-9">
+                                <button type="reset" class="btn btn-light btn-active-light-primary me-2">Limpiar</button>
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
+                            <!--end::Actions-->
+                        </form>
+                        <!--end::Form-->
+                    </div>
+                    <!--end::Content-->
+                </div>
+            </div>
+            <!--end::Card-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Post-->
+</div>
+{% endblock content %}

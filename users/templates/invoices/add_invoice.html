@@ -1,0 +1,223 @@
+{% extends 'dashboard_base.html' %}
+{% load static i18n %}
+{% block title %}
+Añadir Factura
+{% endblock title %}
+{% block content %}
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::Toolbar-->
+    <div class="toolbar" id="kt_toolbar">
+        <!--begin::Container-->
+        <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+            <!--begin::Page title-->
+            <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
+                <!--begin::Title-->
+                <h1 class="d-flex text-dark fw-bolder fs-3 align-items-center my-1">Facturas</h1>
+                <!--end::Title-->
+                <!--begin::Separator-->
+                <span class="h-20px border-gray-300 border-start mx-4"></span>
+                <!--end::Separator-->
+                <!--begin::Breadcrumb-->
+                <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item">
+                        <span class="bullet bg-gray-300 w-5px h-2px"></span>
+                    </li>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item text-muted">Añadir Factura</li>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item">
+                        <span class="bullet bg-gray-300 w-5px h-2px"></span>
+                    </li>
+                    <!--end::Item-->
+                </ul>
+                <!--end::Breadcrumb-->
+            </div>
+            <!--end::Page title-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Toolbar-->
+    <!--begin::Post-->
+    <div class="post d-flex flex-column-fluid" id="kt_post">
+        <!--begin::Container-->
+        <div id="kt_content_container" class="container-xxl">
+            <!--begin::Card-->
+            <div class="card">
+                <div class="card mb-5 mb-xl-10">
+                    <!--begin::Card header-->
+                    <div class="card-header border-0" data-bs-toggle="collapse" data-bs-target="#kt_add_invoice" aria-expanded="true" aria-controls="kt_add_invoice">
+                        <!--begin::Card title-->
+                        <div class="card-title m-0">
+                            <h3 class="fw-bolder m-0">Añadir Nueva Factura</h3>
+                        </div>
+                        <!--end::Card title-->
+                    </div>
+                    <!--begin::Card header-->
+                    <!--begin::Content-->
+                    <div id="kt_settings_add_invoice" class="collapse show">
+                        <!--begin::Form-->
+                        <form action="{% url 'users:process_invoice' %}" method="POST">
+                            {% csrf_token %}
+                            {% if message %}
+                            <div aria-labelledby="swal2-title" aria-describedby="swal2-html-container" id="message-success" class="swal2-popup swal2-modal swal2-icon-success swal2-show m-auto" tabindex="-1" role="dialog" aria-live="assertive" aria-modal="true" style="display: grid;">
+                                <div class="swal2-icon swal2-success swal2-icon-show" style="display: flex;">
+                                    <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
+                                    <span class="swal2-success-line-tip"></span>
+                                    <span class="swal2-success-line-long"></span>
+                                    <div class="swal2-success-ring"></div>
+                                    <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
+                                    <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
+                                </div>
+                                <div class="swal2-html-container" id="swal2-html-container" style="display: block;">
+                                    Factura guardada exitosamente!
+                                </div>
+                                <div class="swal2-actions" style="display: flex;">
+                                    <div class="swal2-loader"></div>
+                                    <button type="button" class="swal2-confirm btn btn-primary" onclick="RemoveMessage()" style="display: inline-block;">
+                                    Ok!</button>
+                                </div>
+                                <div class="swal2-timer-progress-bar-container">
+                                </div>
+                            </div>
+                            {% endif %}
+                            <!--begin::Card body-->
+                            <div class="card-body border-top p-9">
+                                <!--begin::Input group-->
+                                <div class="row mb-6">
+                                    <!--begin::Label-->
+                                    <label for="id_client" class="col-lg-4 col-form-label required fw-bold fs-6">ID Cliente</label>
+                                    <!--end::Label-->
+                                    <!--begin::Col-->
+                                    <div class="col-lg-8">
+                                        <!--begin::Row-->
+                                        <div class="row">
+                                            <!--begin::Col-->
+                                            <div class="col-lg-6 fv-row">
+                                                <select name="client" id="id_client" aria-label="Seleccione ID del cliente" data-control="select2" data-placeholder="Seleccione ID del cliente.." class="form-select form-select-solid form-select-lg" required>
+                                                    <option value="">Seleccione ID del cliente..</option>
+                                                    {% for client in clients %}
+                                                    <option value="{{client.id}}"><b>{{client.document_number}}</b></option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <!--end::Col-->
+                                        </div>
+                                        <!--end::Row-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row mb-6">
+                                    <!--begin::Label-->
+                                    <label for="id_payment_type" class="col-lg-4 col-form-label required fw-bold fs-6">Tipo de pago</label>
+                                    <!--end::Label-->
+                                    <!--begin::Col-->
+                                    <div class="col-lg-8">
+                                        <!--begin::Row-->
+                                        <div class="row">
+                                            <!--begin::Col-->
+                                            <div class="col-lg-6 fv-row">
+                                                <select onchange="SelectTotal(event)" name="payment_type" id="id_payment_type" aria-label="Seleccione tipo de pago" data-control="select2" data-placeholder="Seleccione tipo de pago.." class="form-select form-select-solid form-select-lg" required>
+                                                    <option value="">Seleccione tipo de pago..</option>
+                                                    <option data-total="5000" value="Sesión"><b>Sesión</b></option>
+                                                    <option data-total="18000" value="Semana"><b>Semana</b></option>
+                                                    <option data-total="25000" value="Quincena"><b>Quincena</b></option>
+                                                    <option data-total="40000" value="Mes"><b>Mes</b></option>
+                                                </select>
+                                            </div>
+                                            <!--end::Col-->
+                                        </div>
+                                        <!--end::Row-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row mb-6">
+                                    <!--begin::Label-->
+                                    <label for="id_total" class="col-lg-4 col-form-label required fw-bold fs-6">Total</label>
+                                    <!--end::Label-->
+                                    <!--begin::Col-->
+                                    <div class="col-lg-8">
+                                        <!--begin::Row-->
+                                        <div class="row">
+                                            <!--begin::Col-->
+                                            <div class="col-lg-6 fv-row">
+                                                <input type="number" name="total" id="id_total" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Total a pagar" required />
+                                            </div>
+                                            <!--end::Col-->
+                                        </div>
+                                        <!--end::Row-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row mb-6">
+                                    <!--begin::Label-->
+                                    <label for="id_status" class="col-lg-4 col-form-label required fw-bold fs-6">Estado</label>
+                                    <!--end::Label-->
+                                    <!--begin::Col-->
+                                    <div class="col-lg-8">
+                                        <!--begin::Row-->
+                                        <div class="row">
+                                            <!--begin::Col-->
+                                            <div class="col-lg-6 fv-row">
+                                                <select name="status" id="id_status" aria-label="Seleccione estado de factura" data-control="select2" data-placeholder="Seleccione estado de factura.." class="form-select form-select-solid form-select-lg" required>
+                                                    <option value="">Seleccione estado de factura..</option>
+                                                    <option value="Pago"><b>Pago</b></option>
+                                                    <option value="Pendiente"><b>Pendiente</b></option>
+                                                </select>
+                                            </div>
+                                            <!--end::Col-->
+                                        </div>
+                                        <!--end::Row-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row mb-6">
+                                    <!--begin::Label-->
+                                    <label for="id_date_joined" class="col-lg-4 col-form-label required fw-bold fs-6">Fecha</label>
+                                    <!--end::Label-->
+                                    <!--begin::Col-->
+                                    <div class="col-lg-8">
+                                        <!--begin::Row-->
+                                        <div class="row">
+                                            <!--begin::Col-->
+                                            <div class="col-lg-6 fv-row">
+                                                <input type="date" name="date_joined" id="id_date_joined" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" required />
+                                            </div>
+                                            <!--end::Col-->
+                                        </div>
+                                        <!--end::Row-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                            </div>
+                            <!--end::Card body-->
+                            <!--begin::Actions-->
+                            <div class="card-footer d-flex justify-content-end py-6 px-9">
+                                <button type="reset" class="btn btn-light btn-active-light-primary me-2">Limpiar</button>
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
+                            <!--end::Actions-->
+                        </form>
+                        <!--end::Form-->
+                    </div>
+                    <!--end::Content-->
+                </div>
+            </div>
+            <!--end::Card-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Post-->
+</div>
+{% endblock content %}
